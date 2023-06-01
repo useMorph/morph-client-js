@@ -7,6 +7,7 @@ import {
   EmptyRecord,
   MorphRecord,
   AggregateRecordOptions,
+  DownloadRecordsAsCsvOptions,
 } from './types/records';
 import { GeneralResponse } from './types/common';
 import urlJoin from 'url-join';
@@ -51,6 +52,14 @@ class MorphDataAPIClient {
     url: string,
     apiKey: string,
     options: AggregateRecordOptions
+  ) {
+    return await this.fetcher({ url, method: 'POST', apiKey, body: options });
+  }
+
+  public async downloadRecordsAsCsv(
+    url: string,
+    apiKey: string,
+    options: DownloadRecordsAsCsvOptions
   ) {
     return await this.fetcher({ url, method: 'POST', apiKey, body: options });
   }

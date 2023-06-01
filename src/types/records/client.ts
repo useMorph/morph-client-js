@@ -42,3 +42,17 @@ export type AggregateRecordOptions = {
   limit?: number;
   skip?: number;
 };
+
+export type DownloadRecordsAsCsvOptions = {
+  select: string[];
+  join: {
+    targetTable: string;
+    rules: JoinConditionUnit[];
+  };
+  filter?: RecordFilterConditionUnitAnd | RecordFilterConditionUnitOr;
+  sort?: RecordSortConditionUnit[];
+  limit?: number;
+  skip?: number;
+  additionalFilter?: RecordFilterConditionUnitAnd | RecordFilterConditionUnitOr;
+  additionalSort?: RecordSortConditionUnit[];
+};

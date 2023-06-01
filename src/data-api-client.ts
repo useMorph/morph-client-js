@@ -19,6 +19,9 @@ class MorphDataAPIClient {
     return await this.fetcher({ url, method: 'POST', apiKey, body: options });
   }
 
+  /**
+   * records
+   */
   public async createRecord<R extends MorphRecord = MorphRecord>(
     url: string,
     apiKey: string,
@@ -43,6 +46,9 @@ class MorphDataAPIClient {
     return await this.fetcher({ url, method: 'POST', apiKey, body: options });
   }
 
+  /**
+   * chat reply
+   */
   public async chatReply(
     url: string,
     apiKey: string,

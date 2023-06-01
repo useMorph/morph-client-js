@@ -29,6 +29,9 @@ class MorphAdminAPIClient {
     this.endpointDomain = endpointDomain ?? 'api.morphdb.io';
   }
 
+  /**
+   * records
+   */
   public async queryRecords<R extends MorphRecord = EmptyRecord>(
     databaseId: string,
     tableSlug: string,
@@ -76,6 +79,10 @@ class MorphAdminAPIClient {
       body: options,
     });
   }
+
+  /**
+   * chat reply
+   */
 
   /**
    * fetcher

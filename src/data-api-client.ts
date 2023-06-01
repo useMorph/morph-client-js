@@ -54,7 +54,7 @@ const fetcher = async <T>({
 };
 
 class MorphDataAPIClient {
-  public async query<R extends MorphRecord = EmptyRecord>(
+  public async queryRecords<R extends MorphRecord = EmptyRecord>(
     url: string,
     apiKey: string,
     options: QueryRecordOptions<R>
@@ -62,7 +62,7 @@ class MorphDataAPIClient {
     return await fetcher({ url, method: 'POST', apiKey, body: options });
   }
 
-  public async create<R extends MorphRecord = MorphRecord>(
+  public async createRecord<R extends MorphRecord = MorphRecord>(
     url: string,
     apiKey: string,
     options: CreateRecordOptions<R>
@@ -70,7 +70,7 @@ class MorphDataAPIClient {
     return await fetcher({ url, method: 'POST', apiKey, body: options });
   }
 
-  public async update<R extends MorphRecord = MorphRecord>(
+  public async updateRecords<R extends MorphRecord = MorphRecord>(
     url: string,
     apiKey: string,
     options: UpdateRecordOptions<R>
@@ -78,7 +78,7 @@ class MorphDataAPIClient {
     return await fetcher({ url, method: 'POST', apiKey, body: options });
   }
 
-  public async delete<R extends MorphRecord = MorphRecord>(
+  public async deleteRecords<R extends MorphRecord = MorphRecord>(
     url: string,
     apiKey: string,
     options: DeleteRecordOptions<R>

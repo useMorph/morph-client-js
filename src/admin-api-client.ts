@@ -29,7 +29,7 @@ class MorphAdminAPIClient {
     this.endpointDomain = endpointDomain ?? 'api.morphdb.io';
   }
 
-  public async query<R extends MorphRecord = EmptyRecord>(
+  public async queryRecords<R extends MorphRecord = EmptyRecord>(
     databaseId: string,
     tableSlug: string,
     options: QueryRecordOptions<R>
@@ -41,7 +41,7 @@ class MorphAdminAPIClient {
     });
   }
 
-  public async create<R extends MorphRecord = EmptyRecord>(
+  public async createRecord<R extends MorphRecord = EmptyRecord>(
     databaseId: string,
     tableSlug: string,
     options: CreateRecordOptions<R>
@@ -53,7 +53,7 @@ class MorphAdminAPIClient {
     });
   }
 
-  public async update<R extends MorphRecord = EmptyRecord>(
+  public async updateRecords<R extends MorphRecord = EmptyRecord>(
     databaseId: string,
     tableSlug: string,
     options: UpdateRecordOptions<R>
@@ -65,7 +65,7 @@ class MorphAdminAPIClient {
     });
   }
 
-  public async delete<R extends MorphRecord = EmptyRecord>(
+  public async deleteRecords<R extends MorphRecord = EmptyRecord>(
     databaseId: string,
     tableSlug: string,
     options: DeleteRecordOptions<R>

@@ -8,6 +8,7 @@ import {
   MorphRecord,
 } from './types/records';
 import { GeneralResponse } from './types/common';
+import urlJoin from 'url-join';
 
 const fetcher = async <T>({
   method,
@@ -22,11 +23,7 @@ const fetcher = async <T>({
   params?: Record<string, string>;
   body?: unknown;
 }) => {
-  let fullUrl = url;
-  if (method === 'GET' && params) {
-    const query = new URLSearchParams(params).toString();
-    fullUrl = `${url}?${query}`;
-  }
+  const fullUrl = urlJoin(url, new URLSearchParams(params).toString());
 
   const error = new Error();
 

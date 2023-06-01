@@ -1,5 +1,6 @@
 {
   "name": "@morphdb/morph-client",
+  "description": "Client for Morph's Data API",
   "version": "0.0.1",
   "license": "MIT",
   "main": "dist/index.js",
@@ -32,7 +33,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "morph-client",
   "author": "Atsuki",
   "module": "dist/morph-client.esm.js",
   "size-limit": [
@@ -53,7 +53,13 @@
     "tslib": "^2.5.2",
     "typescript": "^5.0.4"
   },
-  "dependencies": {
-    "axios": "^1.4.0"
-  }
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/useMorph/morph-client-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/useMorph/morph-client-js/issues"
+  },
+  "homepage": "https://github.com/useMorph/morph-client-js#readme"
 }

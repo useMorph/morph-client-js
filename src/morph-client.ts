@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   RecordFilterConditionUnitAnd,
   RecordFilterConditionUnitOr,
@@ -13,8 +12,6 @@ import {
   Values,
 } from './types/records';
 
-const client = axios.create();
-
 const fetcher = async <T>({
   method,
   url,
@@ -25,23 +22,41 @@ const fetcher = async <T>({
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   url: string;
   apiKey: string;
-  params?: unknown;
+  params?: Record<string, string>;
   body?: unknown;
 }) => {
-  const stringifiedBody = JSON.stringify(body);
+  let fullUrl = url;
+  if (method === 'GET' && params) {
+    const query = new URLSearchParams(params).toString();
+    fullUrl = `${url}?${query}`;
+  }
 
-  const response = await client({
-    method,
-    url,
-    params,
-    headers: {
-      'X-API-KEY': apiKey,
-      'Content-Type': 'application/json;charset=utf-8',
-    },
-    data: stringifiedBody,
-  });
+  const error = new Error();
 
-  return response.data as T;
+  try {
+    const response = await fetch(fullUrl, {
+      method,
+      headers: {
+        'X-API-KEY': apiKey,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      ...(method !== 'GET' ? { body: JSON.stringify(body) } : {}),
+    });
+
+    if (!response.ok) {
+      const body = await response.json();
+      if (body && typeof body === 'object' && 'message' in body) {
+        error.message = body.message;
+      } else {
+        error.message = `HTTP error, status = ${response.status}`;
+      }
+      throw error;
+    }
+
+    return (await response.json()) as T;
+  } catch (e) {
+    throw e;
+  }
 };
 
 class MorphClient {

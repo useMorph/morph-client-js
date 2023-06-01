@@ -113,4 +113,4 @@ class MorphClient {
   }
 }
 
-export default MorphClient;
+export { MorphClient };

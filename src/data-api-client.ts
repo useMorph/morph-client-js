@@ -1,16 +1,12 @@
 import {
   RecordFilterConditionUnitAnd,
   RecordFilterConditionUnitOr,
-} from './types/filter';
-
-import { RecordSortConditionUnit } from './types/sort';
-
-import {
-  GeneralResponse,
+  RecordSortConditionUnit,
   MorphRecord,
   QueryRecordListResponse,
   Values,
 } from './types/records';
+import { GeneralResponse } from './types/common';
 
 const fetcher = async <T>({
   method,
@@ -59,7 +55,7 @@ const fetcher = async <T>({
   }
 };
 
-class MorphClient {
+class MorphDataAPIClient {
   public async query<R extends MorphRecord = MorphRecord>(
     url: string,
     apiKey: string,
@@ -127,4 +123,4 @@ class MorphClient {
   }
 }
 
-export { MorphClient };
+export { MorphDataAPIClient };

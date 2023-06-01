@@ -1,10 +1,11 @@
 import {
-  RecordFilterConditionUnitAnd,
-  RecordFilterConditionUnitOr,
-  RecordSortConditionUnit,
-  MorphRecord,
+  CreateRecordOptions,
+  QueryRecordOptions,
+  UpdateRecordOptions,
+  DeleteRecordOptions,
   QueryRecordListResponse,
-  Values,
+  EmptyRecord,
+  MorphRecord,
 } from './types/records';
 import { GeneralResponse } from './types/common';
 
@@ -56,16 +57,10 @@ const fetcher = async <T>({
 };
 
 class MorphDataAPIClient {
-  public async query<R extends MorphRecord = MorphRecord>(
+  public async query<R extends MorphRecord = EmptyRecord>(
     url: string,
     apiKey: string,
-    options: {
-      select: (keyof R)[];
-      filter?: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
-      sort?: RecordSortConditionUnit<R>[];
-      skip?: number;
-      limit?: number;
-    }
+    options: QueryRecordOptions<R>
   ): Promise<QueryRecordListResponse<R>> {
     return await fetcher({ url, method: 'POST', apiKey, body: options });
   }
@@ -73,10 +68,7 @@ class MorphDataAPIClient {
   public async create<R extends MorphRecord = MorphRecord>(
     url: string,
     apiKey: string,
-    options: {
-      values: Values<R>;
-      fixedValue: Array<{ key: string; value: unknown }>;
-    }
+    options: CreateRecordOptions<R>
   ): Promise<GeneralResponse> {
     return await fetcher({ url, method: 'POST', apiKey, body: options });
   }
@@ -84,11 +76,7 @@ class MorphDataAPIClient {
   public async update<R extends MorphRecord = MorphRecord>(
     url: string,
     apiKey: string,
-    options: {
-      filter: RecordFilterConditionUnitAnd | RecordFilterConditionUnitOr;
-      values: Values<R>;
-      fixedValue: Array<{ key: string; value: unknown }>;
-    }
+    options: UpdateRecordOptions<R>
   ): Promise<GeneralResponse> {
     return await fetcher({ url, method: 'POST', apiKey, body: options });
   }
@@ -96,9 +84,7 @@ class MorphDataAPIClient {
   public async delete<R extends MorphRecord = MorphRecord>(
     url: string,
     apiKey: string,
-    options: {
-      filter?: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
-    }
+    options: DeleteRecordOptions<R>
   ): Promise<GeneralResponse> {
     return await fetcher({ url, method: 'POST', apiKey, body: options });
   }

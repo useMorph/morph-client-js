@@ -122,8 +122,7 @@ class MorphClient {
       url,
       method: 'POST',
       apiKey,
-      body: { prompt },
-      params: { botId },
+      body: { prompt, botId },
     });
   }
 }

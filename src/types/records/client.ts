@@ -4,6 +4,7 @@ import {
   RecordFilterConditionUnitOr,
 } from './util/filter';
 import { RecordSortConditionUnit } from './util/sort';
+import { JoinConditionUnit } from './util/join';
 
 export type CreateRecordOptions<R extends MorphRecord = EmptyRecord> = {
   values: Values<R>;
@@ -26,4 +27,18 @@ export type UpdateRecordOptions<R extends MorphRecord = EmptyRecord> = {
 
 export type DeleteRecordOptions<R extends MorphRecord = EmptyRecord> = {
   filter: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
+};
+
+export type AggregateRecordOptions = {
+  aggregation: {
+    key: string;
+    operator: 'count' | 'sum' | 'mean' | 'median';
+    filter?: RecordFilterConditionUnitAnd | RecordFilterConditionUnitOr;
+  };
+  groupKeys: string[];
+  join?: JoinConditionUnit[];
+  filter?: RecordFilterConditionUnitAnd | RecordFilterConditionUnitOr;
+  sort?: RecordSortConditionUnit[];
+  limit?: number;
+  skip?: number;
 };

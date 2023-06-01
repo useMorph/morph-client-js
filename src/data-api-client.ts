@@ -6,6 +6,7 @@ import {
   QueryRecordListResponse,
   EmptyRecord,
   MorphRecord,
+  AggregateRecordOptions,
 } from './types/records';
 import { GeneralResponse } from './types/common';
 import urlJoin from 'url-join';
@@ -46,26 +47,12 @@ class MorphDataAPIClient {
     return await this.fetcher({ url, method: 'POST', apiKey, body: options });
   }
 
-  /**
-   * chat reply
-   */
-  public async chatReply(
+  public async aggregateRecords(
     url: string,
     apiKey: string,
-    {
-      botId,
-      prompt,
-    }: {
-      botId: string;
-      prompt: string;
-    }
+    options: AggregateRecordOptions
   ) {
-    return await this.fetcher({
-      url,
-      method: 'POST',
-      apiKey,
-      body: { prompt, botId },
-    });
+    return await this.fetcher({ url, method: 'POST', apiKey, body: options });
   }
 
   /**

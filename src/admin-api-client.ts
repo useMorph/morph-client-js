@@ -10,6 +10,7 @@ import {
 import { ChatReplyOptions } from './types/chat-reply';
 import { GeneralResponse } from './types/common';
 import urlJoin from 'url-join';
+import { SimpleFieldListResponse } from './types/fields';
 
 class MorphAdminAPIClient {
   private apiKey: string;
@@ -78,6 +79,20 @@ class MorphAdminAPIClient {
       path: `/record/${databaseId}/${tableSlug}/delete`,
       method: 'POST',
       body: options,
+    });
+  }
+
+  /**
+   * fields
+   */
+
+  public async getSimpleFields(
+    databaseId: string,
+    tableSlug: string
+  ): Promise<SimpleFieldListResponse> {
+    return await this.fetcher({
+      path: `/${databaseId}/simple-field/${tableSlug}`,
+      method: 'GET',
     });
   }
 

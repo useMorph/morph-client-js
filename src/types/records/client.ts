@@ -13,7 +13,7 @@ export type CreateRecordOptions<R extends MorphRecord = EmptyRecord> = {
 
 export type QueryRecordOptions<R extends MorphRecord = EmptyRecord> = {
   select: string[];
-  join?: { targetTable: string; rules: JoinConditionUnit[] };
+  join?: { targetTable: string; rules: JoinConditionUnit[] }[];
   filter?: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
   sort?: RecordSortConditionUnit<R>[];
   limit?: number;

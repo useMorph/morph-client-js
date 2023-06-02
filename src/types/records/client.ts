@@ -12,7 +12,7 @@ export type CreateRecordOptions<R extends MorphRecord = EmptyRecord> = {
 };
 
 export type QueryRecordOptions<R extends MorphRecord = EmptyRecord> = {
-  select: (keyof R)[];
+  select: (keyof R | '*')[];
   filter?: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
   sort?: RecordSortConditionUnit<R>[];
   skip?: number;

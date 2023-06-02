@@ -1,4 +1,4 @@
 export type ChatReplyOptions = {
-  botId?: string;
+  botId: string;
   prompt: string;
 };

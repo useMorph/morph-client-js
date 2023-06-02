@@ -13,20 +13,25 @@ export type CreateRecordOptions<R extends MorphRecord = EmptyRecord> = {
 
 export type QueryRecordOptions<R extends MorphRecord = EmptyRecord> = {
   select: (keyof R | '*')[];
+  join?: { targetTable: string; rules: JoinConditionUnit[] };
   filter?: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
   sort?: RecordSortConditionUnit<R>[];
-  skip?: number;
   limit?: number;
+  skip?: number;
+  additionalFilter?:
+    | RecordFilterConditionUnitAnd<R>
+    | RecordFilterConditionUnitOr<R>;
+  additionalSort?: RecordSortConditionUnit<R>[];
 };
 
 export type UpdateRecordOptions<R extends MorphRecord = EmptyRecord> = {
-  filter: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
+  filter?: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
   values: Values<R>;
   fixedValue: Values<R>;
 };
 
 export type DeleteRecordOptions<R extends MorphRecord = EmptyRecord> = {
-  filter: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
+  filter?: RecordFilterConditionUnitAnd<R> | RecordFilterConditionUnitOr<R>;
 };
 
 export type AggregateRecordOptions = {
@@ -45,7 +50,7 @@ export type AggregateRecordOptions = {
 
 export type DownloadRecordsAsCsvOptions = {
   select: string[];
-  join: {
+  join?: {
     targetTable: string;
     rules: JoinConditionUnit[];
   };

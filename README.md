@@ -51,7 +51,7 @@ For more information, please check the following pages
 - [How to find the API key for the Admin API](https://api-docs.morphdb.io/docs/quickstart#create-an-api-key)
 - [How to find the team slug](https://api-docs.morphdb.io/docs/quickstart#how-to-find-teamslug-databaseid-and-tableslug)
 
-### Create Record
+### Create Record(Admin API)
 
 ```lang="ts"
 adminClient.createRecord(
@@ -63,7 +63,7 @@ adminClient.createRecord(
 
 [API document](https://api-docs.morphdb.io/reference/query-records)
 
-### Query Records
+### Query Records(Admin API)
 
 ```lang="ts"
 adminClient.queryRecords(
@@ -75,7 +75,7 @@ adminClient.queryRecords(
 
 [API document](https://api-docs.morphdb.io/reference/create-record)
 
-### Update Records
+### Update Records(Admin API)
 
 ```lang="ts"
 adminClient.updateRecords(
@@ -87,7 +87,7 @@ adminClient.updateRecords(
 
 [API document](https://api-docs.morphdb.io/reference/update-record)
 
-### Delete Records
+### Delete Records(Admin API)
 
 ```lang="ts"
 adminClient.deleteRecords(
@@ -115,7 +115,7 @@ For more information, please check the following page
 
 - [Creating APIs](https://help.morphdb.io/creating-apis)
 
-### Create Record
+### Create Record(Data API)
 
 ```lang="ts"
 dataClient.createRecord(
@@ -127,7 +127,7 @@ dataClient.createRecord(
 
 [API document](https://api-docs.morphdb.io/reference/post-widget-data-record-create)
 
-### Query Records
+### Query Records(Data API)
 
 ```lang="ts"
 dataClient.queryRecords(
@@ -137,7 +137,7 @@ dataClient.queryRecords(
 );
 ```
 
-### Update Records
+### Update Records(Data API)
 
 ```lang="ts"
 dataClient.updateRecords(
@@ -149,7 +149,7 @@ dataClient.updateRecords(
 
 [API document](https://api-docs.morphdb.io/reference/post-widget-data-record-update)
 
-### Delete Records
+### Delete Records(Data API)
 
 ```lang="ts"
 dataClient.deleteRecords(
@@ -161,7 +161,7 @@ dataClient.deleteRecords(
 
 [API document](https://api-docs.morphdb.io/reference/post-widget-data-record-delete)
 
-### Aggregate Records
+### Aggregate Records(Data API)
 
 ```lang="ts"
 dataClient.aggregateRecords(
@@ -172,6 +172,18 @@ dataClient.aggregateRecords(
 ```
 
 [API document](https://api-docs.morphdb.io/reference/post-widget-data-record-aggregate)
+
+### Download Records As CSV(Data API)
+
+```lang="ts"
+dataClient.downloadRecordsAsCsv(
+    url: string,
+    apiKey: string,
+    options: DownloadRecordsAsCsvOptions
+);
+```
+
+[API document](https://api-docs.morphdb.io/reference/post-widget-data-record-csv)
 
 ## Documentation & References
 

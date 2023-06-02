@@ -51,7 +51,7 @@ For more information, please check the following pages
 - [How to find the API key for the Admin API](https://api-docs.morphdb.io/docs/quickstart#create-an-api-key)
 - [How to find the team slug](https://api-docs.morphdb.io/docs/quickstart#how-to-find-teamslug-databaseid-and-tableslug)
 
-### Create Record(Admin API)
+### [Create Record(Admin API)](https://api-docs.morphdb.io/reference/create-record)
 
 ```lang="ts"
 adminClient.createRecord(
@@ -61,9 +61,7 @@ adminClient.createRecord(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/query-records)
-
-### Query Records(Admin API)
+### [Query Records(Admin API)](https://api-docs.morphdb.io/reference/query-records)
 
 ```lang="ts"
 adminClient.queryRecords(
@@ -73,9 +71,41 @@ adminClient.queryRecords(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/create-record)
+#### example
 
-### Update Records(Admin API)
+Only male clients under 20 years old are extracted and sorted by name.
+
+```lang="ts"
+adminClient.queryRecords(
+    YOUR_DATABASE_ID,
+    YOUR_TABLE_SLUG,
+    {
+        select: ["*"],
+        filter: {
+            and: [
+                {
+                    key: "age",
+                    operator: "lessThan",
+                    value: 20,
+                },
+                {
+                    key: "sex",
+                    operator: "equal",
+                    value: "male",
+                },
+            ],
+        },
+        sort: [
+            {
+                key: "name",
+                direction: "ascending",
+            },
+        ],
+    }
+);
+```
+
+### [Update Records(Admin API)](https://api-docs.morphdb.io/reference/update-record)
 
 ```lang="ts"
 adminClient.updateRecords(
@@ -85,9 +115,7 @@ adminClient.updateRecords(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/update-record)
-
-### Delete Records(Admin API)
+### [Delete Records(Admin API)](https://api-docs.morphdb.io/reference/delete-record)
 
 ```lang="ts"
 adminClient.deleteRecords(
@@ -97,9 +125,27 @@ adminClient.deleteRecords(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/delete-record)
+#### example
+
+Delete records with id 9.
+
+```lang="ts"
+adminClient.deleteRecords("", "", {
+    filter: {
+        and: [
+        {
+            key: "id",
+            operator: "equal",
+            value: 9,
+        },
+        ],
+    },
+});
+```
 
 ## Data API
+
+The interface and specifications of options are the same for the Data API and the Admin API.
 
 ### Initialize client for Data API
 
@@ -113,7 +159,7 @@ The Data API requires the respective endpoints and API keys to be issued from th
 
 [For more detail](https://help.morphdb.io/creating-apis)
 
-### Create Record(Data API)
+### [Create Record(Data API)](https://api-docs.morphdb.io/reference/post-widget-data-record-create)
 
 ```lang="ts"
 dataClient.createRecord(
@@ -123,9 +169,7 @@ dataClient.createRecord(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/post-widget-data-record-create)
-
-### Query Records(Data API)
+### [Query Records(Data API)](https://api-docs.morphdb.io/reference/post-widget-data-record-query)
 
 ```lang="ts"
 dataClient.queryRecords(
@@ -135,9 +179,7 @@ dataClient.queryRecords(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/post-widget-data-record-query)
-
-### Update Records(Data API)
+### [Update Records(Data API)](https://api-docs.morphdb.io/reference/post-widget-data-record-update)
 
 ```lang="ts"
 dataClient.updateRecords(
@@ -147,9 +189,7 @@ dataClient.updateRecords(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/post-widget-data-record-update)
-
-### Delete Records(Data API)
+### [Delete Records(Data API)](https://api-docs.morphdb.io/reference/post-widget-data-record-delete)
 
 ```lang="ts"
 dataClient.deleteRecords(
@@ -159,9 +199,7 @@ dataClient.deleteRecords(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/post-widget-data-record-delete)
-
-### Aggregate Records(Data API)
+### [Aggregate Records(Data API)](https://api-docs.morphdb.io/reference/post-widget-data-record-aggregate)
 
 ```lang="ts"
 dataClient.aggregateRecords(
@@ -171,9 +209,7 @@ dataClient.aggregateRecords(
 );
 ```
 
-[API document](https://api-docs.morphdb.io/reference/post-widget-data-record-aggregate)
-
-### Download Records As CSV(Data API)
+### [Download Records As CSV(Data API)](https://api-docs.morphdb.io/reference/post-widget-data-record-csv)
 
 ```lang="ts"
 dataClient.downloadRecordsAsCsv(
@@ -182,8 +218,6 @@ dataClient.downloadRecordsAsCsv(
     options: DownloadRecordsAsCsvOptions
 );
 ```
-
-[API document](https://api-docs.morphdb.io/reference/post-widget-data-record-csv)
 
 ## Type-safe development(Highly recommended!)
 

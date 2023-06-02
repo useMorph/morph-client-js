@@ -4,7 +4,7 @@
 
 [Morph](https://www.morphdb.io/) is a no-code tool that can handle huge data with the feel of a spreadsheet.
 
-@morphdb/morph-client is a Javascript library that provides easy access to Morph's Admin API and Data API.
+`@morphdb/morph-client` is a Javascript library that provides easy access to Morph's Admin API and Data API.
 
 ## Getting started
 
@@ -41,8 +41,8 @@ Each API key corresponds to a specific endpoint, so you can generate and use onl
 import { MorphAdminAPIClient } from "@morphdb/morph-client";
 
 const adminClient = new MorphAdminAPIClient({
-    teamSlug: import.meta.env.VITE_TEAM_SLUG,
-    apiKey: import.meta.env.VITE_MORPH_ADMIN_API_KEY,
+    teamSlug: YOUR_TEAM_SLUG,
+    apiKey: YOUR_API_KEY
 });
 ```
 
@@ -111,9 +111,7 @@ const adminClient = new MorphDataAPIClient();
 
 The Data API requires the respective endpoints and API keys to be issued from the Morph dashboard.
 
-For more information, please check the following page
-
-- [Creating APIs](https://help.morphdb.io/creating-apis)
+[For more detail](https://help.morphdb.io/creating-apis)
 
 ### Create Record(Data API)
 
@@ -136,6 +134,8 @@ dataClient.queryRecords(
     options: QueryRecordsOptions
 );
 ```
+
+[API document](https://api-docs.morphdb.io/reference/post-widget-data-record-query)
 
 ### Update Records(Data API)
 
@@ -185,9 +185,51 @@ dataClient.downloadRecordsAsCsv(
 
 [API document](https://api-docs.morphdb.io/reference/post-widget-data-record-csv)
 
-## Documentation & References
+## Type-safe development(Highly recommended!)
 
-At this time, some of the Morph Admin APIs are provided as methods. We plan to support all APIs soon, but if you want to use other APIs, please refer to the API documentation.
+Morph records are type `Record<string, unknown>` by default. Defining types in accordance with the schema of the tables you use allows for more type-safe development.
+
+### 1. Define record type
+
+morph-client provides a utility type named F.
+Define the record types to match the schema of your table.
+
+For example, if you are using a table for task management, it might look like this.
+
+```lang="ts"
+import { F } from "@morphdb/morph-client";
+
+export type TaskRecord = {
+    id: F.AutoNumber.Required;
+    title: F.ShortText.Required;
+    description: F.LongText.Nullable;
+    due_date: F.Date.Nullable;
+    is_done: F.Boolean.Required;
+};
+```
+
+### 2. Pass it to the client method as a generics
+
+Passing that type as generics to each method will cause the appropriate type to be inferred for the arguments and return values.
+
+List of methods that accept record types as generics
+
+- `MorphAdminAPIClient.createRecord()`
+- `MorphAdminAPIClient.queryRecords()`
+- `MorphAdminAPIClient.updateRecords()`
+- `MorphAdminAPIClient.deleteRecords()`
+- `MorphDataAPIClient.createRecord()`
+- `MorphDataAPIClient.queryRecords()`
+- `MorphDataAPIClient.updateRecords()`
+- `MorphDataAPIClient.deleteRecords()`
+
+> We are considering adding the feature to automatically generate types from the command line!
+
+## Documentation & References
 
 [API Document](https://api-docs.morphdb.io/reference/introduction)
 [Service Page](https://www.morphdb.io/)
+
+## Others
+
+- At this time, some of the Morph Admin APIs are provided as methods. We plan to support all APIs soon, but if you want to use other APIs, please refer to the API documentation.

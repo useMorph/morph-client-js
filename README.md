@@ -221,7 +221,7 @@ dataClient.downloadRecordsAsCsv(
 
 ## Type-safe development(Highly recommended!)
 
-Morph records are type `Record<string, unknown>` by default. Defining types in accordance with the schema of the tables you use allows for more type-safe development.
+By defining a type for the return value, you can handle Record-related methods more safely.
 
 ### 1. Define record type
 
@@ -244,7 +244,7 @@ export type TaskRecord = {
 
 ### 2. Pass it to the client method as a generics
 
-Passing that type as generics to each method will cause the appropriate type to be inferred for the arguments and return values.
+When that type is passed to each method as a generic, the return value is inferred as that type. The argument values are also inferred appropriately.
 
 List of methods that accept record types as generics
 
@@ -256,8 +256,6 @@ List of methods that accept record types as generics
 - `MorphDataAPIClient.queryRecords()`
 - `MorphDataAPIClient.updateRecords()`
 - `MorphDataAPIClient.deleteRecords()`
-
-> We are considering adding the feature to automatically generate types from the command line!
 
 ## Documentation & References
 

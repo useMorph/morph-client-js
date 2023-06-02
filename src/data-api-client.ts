@@ -8,6 +8,7 @@ import {
   MorphRecord,
   AggregateRecordOptions,
   DownloadRecordsAsCsvOptions,
+  DownloadRecordsAsCsvResponse,
 } from './types/records';
 import { GeneralResponse } from './types/common';
 import urlJoin from 'url-join';
@@ -53,7 +54,7 @@ class MorphDataAPIClient {
     url: string,
     apiKey: string,
     options: AggregateRecordOptions
-  ) {
+  ): Promise<QueryRecordListResponse> {
     return await this.fetcher({ url, method: 'POST', apiKey, body: options });
   }
 
@@ -61,7 +62,7 @@ class MorphDataAPIClient {
     url: string,
     apiKey: string,
     options: DownloadRecordsAsCsvOptions
-  ) {
+  ): Promise<DownloadRecordsAsCsvResponse> {
     return await this.fetcher({ url, method: 'POST', apiKey, body: options });
   }
 

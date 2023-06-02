@@ -11,6 +11,7 @@ import {
 } from './types/records';
 import { GeneralResponse } from './types/common';
 import urlJoin from 'url-join';
+import { ChatReplyOptions } from './types/chat-reply';
 
 class MorphDataAPIClient {
   public async queryRecords<R extends MorphRecord = EmptyRecord>(
@@ -65,6 +66,38 @@ class MorphDataAPIClient {
   }
 
   /**
+   * chat reply
+   */
+  public async chatReply(
+    url: string,
+    apiKey: string,
+    options: ChatReplyOptions
+  ): Promise<ReadableStream<Uint8Array>> {
+    const error = new Error();
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: this.getHeaders(apiKey),
+        body: JSON.stringify(options),
+      });
+
+      if (!response.ok) {
+        await this.throwErrorFromResponse(response, error);
+      }
+
+      if (!response.body) {
+        error.message = 'No response body';
+        throw error;
+      }
+
+      return response.body;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
    * fetcher
    */
   private async fetcher<T>({
@@ -87,27 +120,34 @@ class MorphDataAPIClient {
     try {
       const response = await fetch(fullUrl, {
         method,
-        headers: {
-          'X-API-KEY': apiKey,
-          'Content-Type': 'application/json;charset=utf-8',
-        },
+        headers: this.getHeaders(apiKey),
         ...(method !== 'GET' ? { body: JSON.stringify(body) } : {}),
       });
 
       if (!response.ok) {
-        const body = await response.json();
-        if (body && typeof body === 'object' && 'message' in body) {
-          error.message = body.message;
-        } else {
-          error.message = `HTTP error, status = ${response.status}`;
-        }
-        throw error;
+        await this.throwErrorFromResponse(response, error);
       }
 
       return (await response.json()) as T;
     } catch (e) {
       throw e;
     }
+  }
+
+  private getHeaders(apiKey: string) {
+    return {
+      'X-API-KEY': apiKey,
+      'Content-Type': 'application/json;charset=utf-8',
+    };
+  }
+  private async throwErrorFromResponse(response: Response, error: Error) {
+    const body = await response.json();
+    if (body && typeof body === 'object' && 'message' in body) {
+      error.message = body.message;
+    } else {
+      error.message = `HTTP error, status = ${response.status}`;
+    }
+    throw error;
   }
 }
 

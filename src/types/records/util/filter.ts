@@ -18,6 +18,8 @@ export type RecordFilterConditionUnit<R extends MorphRecord = EmptyRecord> = {
     | 'in'
     | 'notIn';
   isFixed?: boolean | undefined;
+  embeddingOperator?: '<->' | '<=>' | '<#>';
+  embeddingValue?: string;
 };
 
 export type RecordFilterConditionUnitAnd<

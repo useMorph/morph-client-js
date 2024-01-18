@@ -50,7 +50,8 @@
     "size-limit": "^8.2.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.5.2",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "yarn-audit-fix": "^10.0.7"
   },
   "dependencies": {
     "url-join": "^5.0.0"
